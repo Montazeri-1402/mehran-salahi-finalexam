@@ -1,0 +1,29 @@
+// prisma/schema.prisma
+// This file defines the database schema for the Prisma client
+
+// Specify the database provider (PostgreSQL, MySQL, SQLite, etc.)
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// Specify the database models
+model bmi {
+  id     Int     @id @default(autoincrement()) // A unique identifier for each record
+  age    Int     // The user's age
+  gender String  // The user's gender
+  height Int     // The user's height
+  weight Int     // The user's weight
+  bmi    Float   // The user's BMI
+}
+// prisma/index.js
+// This file generates and exports the Prisma client
+
+// Import the PrismaClient constructor from the @prisma/client module
+const { PrismaClient } = require("@prisma/client");
+
+// Instantiate a new PrismaClient object
+const prisma = new PrismaClient();
+
+// Export the Prisma client
+module.exports = prisma;

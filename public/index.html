@@ -1,0 +1,191 @@
+<!-- <html>
+
+<head>
+  <title>Express</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <h1>Express</h1>
+  <p>Welcome to Express</p>
+</body>
+
+</html> -->
+
+
+<!-- index.html -->
+<!-- This file defines the HTML structure and the Vue.js logic for the web application -->
+
+<!-- index.html -->
+<!-- This is the main file for the HTML structure and the JavaScript logic -->
+
+<!-- index.html -->
+<!-- This file defines the HTML structure and the Vue.js logic for the web application -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JS Project About BMI</title>
+  <!-- Import the Vue.js library -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- Import the Axios library for making HTTP requests -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- Define some basic CSS styles -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .form-group {
+      margin: 10px 0;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .result {
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #f0f0f0;
+      border-radius: 5px;
+    }
+
+    .history {
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #f0f0f0;
+      border-radius: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Define the root element for the Vue.js app -->
+  <div id="app">
+    <h1>JS Project About BMI</h1>
+    <div class="container">
+      <!-- Define the form for the user input -->
+      <form @submit.prevent="calculateBMI">
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input type="number" id="age" v-model="age" />
+        </div>
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <input type="text" id="gender" v-model="gender" />
+        </div>
+        <div class="form-group">
+          <label for="height">Height (in cm)</label>
+          <input type="number" id="height" v-model="height" />
+        </div>
+        <div class="form-group">
+          <label for="weight">Weight (in kg)</label>
+          <input type="number" id="weight" v-model="weight" />
+        </div>
+        <button type="submit">Calculate</button>
+      </form>
+      <!-- Define the div for the result -->
+      <div class="result" v-if="result">
+        <p>Your BMI is: {{ result.bmi }}</p>
+        <p>Your BMI category is: {{ bmiCategory }}</p>
+      </div>
+      <!-- Define the div for the history -->
+      <div class="history" v-if="history.length > 0">
+        <h3>Your History</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Age</th>
+              <th>Gender</th>
+              <th>Height</th>
+              <th>Weight</th>
+              <th>BMI</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="record in history" :key="record.id">
+              <td>{{ record.age }}</td>
+              <td>{{ record.gender }}</td>
+              <td>{{ record.height }}</td>
+              <td>{{ record.weight }}</td>
+              <td>{{ record.bmi }}</td>
+              <td>{{ getCategory(record.bmi) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- Define the script for the Vue.js app -->
+  <script>
+    // Create a new Vue instance and mount it to the root element
+    new Vue({
+      el: "#app",
+      // Define the data for the app
+      data: {
+        age: "", // The user's age
+        gender: "", // The user's gender
+        height: "", // The user's height
+        weight: "", // The user's weight
+        result: null, // The result of the calculation
+        history: [], // The history of the previous calculations
+      },
+      // Define the computed properties for the app
+      computed: {
+        // A computed property that returns the BMI category based on the result
+        bmiCategory() {
+          if (this.result) {
+            const bmi = this.result.bmi;
+            if (bmi < 18.5) {
+              return "Underweight";
+            } else if (bmi >= 18.5 && bmi < 25) {
+              return "Normal weight";
+            } else if (bmi >= 25 && bmi < 30){ return "Overweight"; } 
+            else { return "Obese"; } } } } 
